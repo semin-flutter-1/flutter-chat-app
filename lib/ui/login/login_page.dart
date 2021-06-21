@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
       body: Center(child: Container(
         height: 50,
         width: 200,
-        child: Center(child: Text('Login',style: TextStyle(fontSize: 25),)),
+        child: Center(child: Text('Google',style: TextStyle(fontSize: 25,color: Colors.white),)),
         decoration: BoxDecoration(
             color: Colors.pink,
             borderRadius: BorderRadius.only(
