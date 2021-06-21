@@ -1,3 +1,4 @@
+import 'package:chat_app/ui/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,7 +9,12 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatPage()),
+            );
+          },
           child: Text('Log In'),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.grey),
