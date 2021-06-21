@@ -1,18 +1,27 @@
 import 'package:chat_app/model/chat.dart';
+import 'package:chat_app/repository/local_repository.dart';
 import 'package:chat_app/ui/chat/my_chat_item.dart';
 import 'package:chat_app/ui/chat/other_chat_item.dart';
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatelessWidget {
-  final myEmail = 'bbb@aaa.com';
-
-  final items = [
-    Chat('홍길동', null, 'hello world', 100234234234, 'aaa@aaa.com'),
-    Chat('홍길동', null, 'hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2', 100234234234, 'aaa@aaa.com'),
-    Chat('한석봉', null, 'hello world 3', 100234234234, 'bbb@aaa.com'),
-  ];
+class ChatPage extends StatefulWidget {
 
   ChatPage({Key? key}) : super(key: key);
+
+  @override
+  _ChatPageState createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
+  final myEmail = 'bbb@aaa.com';
+
+  late List<Chat> items;
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
