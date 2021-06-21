@@ -7,7 +7,15 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Center(
+        child: ElevatedButton(
+            onPressed: (){},
+            style: ElevatedButton.styleFrom(
+              primary: Colors.lightGreen
+            ),
+            child: Text('Login'),
+      ),
+      )
     );
   }
 }
