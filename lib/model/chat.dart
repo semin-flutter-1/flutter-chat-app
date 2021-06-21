@@ -1,6 +1,6 @@
 class Chat {
   String name;
-  String profileUrl;
+  String? profileUrl;
   String message;
   int time;
   String email;
