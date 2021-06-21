@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,7 +6,15 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text('Log In'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.grey),
+          ),
+        ),
+      ),
     );
   }
 }
