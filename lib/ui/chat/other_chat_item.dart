@@ -8,8 +8,38 @@ class OtherChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('남의 것'),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(
+            maxRadius: 30,
+            backgroundImage: chat.profileUrl != null
+                ? NetworkImage(chat.profileUrl!)
+                : NetworkImage(
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Suzy_at_Asia_Artist_Awards_red_carpet%2C_16_November_2016_02.jpg/250px-Suzy_at_Asia_Artist_Awards_red_carpet%2C_16_November_2016_02.jpg'),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(chat.name),
+                  Text('${chat.time}'),
+                ],
+              ),
+              Container(
+                color: Colors.grey,
+                child: Text(
+                  chat.message,
+                  maxLines: 10,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
