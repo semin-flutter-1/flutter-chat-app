@@ -7,7 +7,19 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Center(child: Container(
+        height: 50,
+        width: 200,
+        child: Center(child: Text('Login',style: TextStyle(fontSize: 25),)),
+        decoration: BoxDecoration(
+            color: Colors.pink,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0)
+            )
+        ),
+
+      ),),
     );
   }
 }
