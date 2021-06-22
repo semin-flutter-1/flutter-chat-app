@@ -1,10 +1,11 @@
 import 'package:chat_app/model/chat.dart';
-import 'package:chat_app/repository/fake_repository.dart';
 import 'package:chat_app/repository/repository.dart';
 import 'package:flutter/foundation.dart';
 
 class ChatViewModel extends ChangeNotifier {
-  final Repository<Chat> repository = FakeRepository();
+  final Repository<Chat> repository;
+
+  ChatViewModel(this.repository);
 
   List<Chat> _chatList = [];
 
