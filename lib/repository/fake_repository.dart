@@ -14,7 +14,7 @@ class FakeRepository extends Repository {
           'hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2hello world 2',
           100234234234,
           'aaa@aaa.com'),
-      Chat('한석봉', null, 'hello world 3', 100234234234, 'bbb@aaa.com'),
+      Chat('한석봉', null, 'hello world 3hello world 3hello', 100234234234, 'bbb@aaa.com'),
     ];
   }
 }

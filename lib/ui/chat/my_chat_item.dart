@@ -1,4 +1,5 @@
 import 'package:chat_app/model/chat.dart';
+import 'package:chat_app/ui/chat/other_chat_item.dart';
 import 'package:flutter/material.dart';
 
 class MyChatItem extends StatelessWidget {
@@ -8,8 +9,22 @@ class MyChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('내 것'),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(timeNow()),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.yellow[200],
+            ),
+            padding: const EdgeInsets.all(8),
+            child: Text(chat.message),
+          ),
+        ],
+      ),
     );
   }
 }
