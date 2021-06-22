@@ -20,23 +20,25 @@ class OtherChatItem extends StatelessWidget {
                 : NetworkImage(
                     'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Suzy_at_Asia_Artist_Awards_red_carpet%2C_16_November_2016_02.jpg/250px-Suzy_at_Asia_Artist_Awards_red_carpet%2C_16_November_2016_02.jpg'),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(chat.name),
-                  Text('${chat.time}'),
-                ],
-              ),
-              Container(
-                color: Colors.grey,
-                child: Text(
-                  chat.message,
-                  maxLines: 10,
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(chat.name),
+                    Text('${chat.time}'),
+                  ],
                 ),
-              ),
-            ],
+                Container(
+                  color: Colors.grey,
+                  child: Text(
+                    chat.message,
+                    maxLines: 10,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
