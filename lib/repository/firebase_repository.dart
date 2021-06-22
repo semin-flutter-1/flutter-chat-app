@@ -8,4 +8,10 @@ class FirebaseRepository extends Repository {
     throw UnimplementedError();
   }
 
+  @override
+  Future pushMessage(String email, String message, int time) {
+    // TODO: implement pushMessage
+    throw UnimplementedError();
+  }
+
 }
