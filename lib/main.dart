@@ -1,8 +1,17 @@
 import 'package:chat_app/ui/login/login_page.dart';
+import 'package:chat_app/viewmodel/chat_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: ChatViewModel()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,4 +27,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
