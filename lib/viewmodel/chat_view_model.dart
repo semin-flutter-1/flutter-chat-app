@@ -23,13 +23,13 @@ class ChatViewModel extends ChangeNotifier {
     });
   }
 
-  void pushMessage(String email, String text, int time) {
+  void pushMessage(String email, String text) {
     repository
         .add(Chat(
       '오준석',
       'https://yt3.ggpht.com/ytc/AAUvwniqTHfAb4NIjTwa5_G1BQmABidGaQ5SZc3AzOQF=s900-c-k-c0x00ffffff-no-rj',
       text,
-      time,
+      DateTime.now().millisecondsSinceEpoch,
       email,
     ))
         .whenComplete(() {

@@ -101,7 +101,6 @@ class _ChatPageState extends State<ChatPage> {
                         viewModel.pushMessage(
                           myEmail,
                           _controller.text,
-                          DateTime.now().millisecond,
                         );
                       },
                       child: Container(
