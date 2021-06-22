@@ -1,5 +1,7 @@
 import 'package:chat_app/model/chat.dart';
-import 'package:chat_app/repository/local_repository.dart';
+import 'package:chat_app/repository/fake_repository.dart';
+import 'package:chat_app/repository/firebase_repository.dart';
+import 'package:chat_app/repository/repository.dart';
 import 'package:chat_app/ui/chat/my_chat_item.dart';
 import 'package:chat_app/ui/chat/other_chat_item.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +17,11 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final myEmail = 'bbb@aaa.com';
 
-  late List<Chat> items;
+  final Repository repository = FakeRepository();
 
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -36,17 +37,32 @@ class _ChatPageState extends State<ChatPage> {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  Chat chat = items[index];
-                  if (myEmail == chat.email) {
-                    return MyChatItem(chat: chat);
-                  } else {
-                    return OtherChatItem(chat: chat);
+              child: FutureBuilder<List<Chat>>(
+                future: repository.getChatList(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
                   }
-                },
+
+                  if (!snapshot.hasData) {
+                    return Center(child: Text('데이터 없음'));
+                  }
+
+                  List<Chat> items = snapshot.data!;
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      Chat chat = items[index];
+                      if (myEmail == chat.email) {
+                        return MyChatItem(chat: chat);
+                      } else {
+                        return OtherChatItem(chat: chat);
+                      }
+                    },
+                  );
+                }
               ),
             ),
             TextField(),
