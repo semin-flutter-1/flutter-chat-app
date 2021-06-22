@@ -1,5 +1,6 @@
-import 'package:chat_app/ui/chat/chat_page.dart';
+import 'package:chat_app/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,10 +11,7 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChatPage()),
-            );
+            context.read<LoginViewModel>().login();
           },
           child: Text('Log In'),
           style: ButtonStyle(
