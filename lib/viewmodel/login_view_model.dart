@@ -1,17 +1,21 @@
+import 'package:chat_app/repository/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  bool _isLogin = false;
+  UserRepository repository;
 
-  get isLogin => _isLogin;
+  LoginViewModel(this.repository);
+
+  get isLogin => repository.user != null;
 
   void login() {
-    _isLogin = true;
-    notifyListeners();
+    repository.login().whenComplete(() {
+      notifyListeners();
+    });
   }
 
   void logout() {
-    _isLogin = false;
+    repository.logout();
     notifyListeners();
   }
 }

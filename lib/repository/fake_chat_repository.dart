@@ -1,7 +1,7 @@
 import 'package:chat_app/model/chat.dart';
 import 'package:chat_app/repository/repository.dart';
 
-class FakeRepository extends Repository<Chat> {
+class FakeChatRepository extends Repository<Chat> {
   final List<Chat> items = [
     Chat('홍길동', null, 'hello world', 100234234234, 'aaa@aaa.com'),
     Chat(
