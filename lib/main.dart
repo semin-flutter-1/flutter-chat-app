@@ -1,11 +1,9 @@
-import 'package:chat_app/repository/fake_chat_repository.dart';
-import 'package:chat_app/repository/fake_user_repository.dart';
+import 'package:chat_app/repository/firebase_chat_repository.dart';
 import 'package:chat_app/repository/firebase_user_repository.dart';
 import 'package:chat_app/ui/chat/chat_page.dart';
 import 'package:chat_app/ui/login/login_page.dart';
 import 'package:chat_app/viewmodel/chat_view_model.dart';
 import 'package:chat_app/viewmodel/login_view_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +12,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
+  final userRepository = FirebaseUserRepository();
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: ChatViewModel(FakeChatRepository())),
-        ChangeNotifierProvider.value(value: LoginViewModel(FirebaseUserRepository())),
+        ChangeNotifierProvider.value(value: LoginViewModel(userRepository)),
+        ChangeNotifierProvider.value(value: ChatViewModel(FirebaseChatRepository(), userRepository)),
       ],
       child: MyApp(),
     ),

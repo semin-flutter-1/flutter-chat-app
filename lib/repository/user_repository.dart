@@ -4,4 +4,6 @@ abstract class UserRepository {
   Future<ChatUser?> login();
 
   Future<void> logout();
+
+  ChatUser? get user;
 }

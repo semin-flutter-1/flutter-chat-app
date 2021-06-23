@@ -14,8 +14,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final myEmail = 'bbb@aaa.com';
-
   final TextEditingController _controller = TextEditingController();
   final _scrollController = ScrollController();
 
@@ -23,7 +21,9 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
 
-    context.read<ChatViewModel>().fetch();
+    context.read<ChatViewModel>()
+        .fetch()
+        .whenComplete(() => _scrollToBottom());
   }
 
   @override
@@ -36,14 +36,17 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<ChatViewModel>();
+    final loginViewModel = context.watch<LoginViewModel>();
 
     return Scaffold(
       appBar: AppBar(
         title: Text(''),
         actions: [
-          IconButton(onPressed: () {
-            context.read<LoginViewModel>().logout();
-          }, icon: Icon(Icons.logout)),
+          IconButton(
+              onPressed: () {
+                context.read<LoginViewModel>().logout();
+              },
+              icon: Icon(Icons.logout)),
         ],
       ),
       body: SafeArea(
@@ -58,7 +61,8 @@ class _ChatPageState extends State<ChatPage> {
                       itemCount: viewModel.chatList.length,
                       itemBuilder: (context, index) {
                         Chat chat = viewModel.chatList[index];
-                        if (myEmail == chat.email) {
+                        if (loginViewModel.repository.user!.email ==
+                            chat.email) {
                           return MyChatItem(chat: chat);
                         } else {
                           return OtherChatItem(chat: chat);
@@ -103,19 +107,14 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                     Flexible(child: Container()),
                     TextButton(
-                      onPressed: () {
-                        viewModel.pushMessage(
-                          myEmail,
-                          _controller.text,
-                        );
+                      onPressed: () async {
+                        await viewModel.pushMessage(_controller.text);
+                        await viewModel.fetch();
+
                         // 입력 창 초기화
                         _controller.clear();
                         // 스크롤 끝으로 이동
-                        _scrollController.animateTo(
-                          _scrollController.position.maxScrollExtent,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeOut,
-                        );
+                        _scrollToBottom();
                       },
                       child: Container(
                         padding: const EdgeInsets.all(8),
@@ -136,6 +135,14 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void _scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
     );
   }
 }

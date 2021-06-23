@@ -5,6 +5,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseUserRepository extends UserRepository {
   GoogleSignIn _googleSignIn = GoogleSignIn();
+  ChatUser? _user;
+
+  @override
+  ChatUser? get user => _user;
 
   @override
   Future<ChatUser?> login() async {
@@ -16,10 +20,11 @@ class FirebaseUserRepository extends UserRepository {
 
     await _googleSignIn.signIn();
 
-    return ChatUser(
+    _user = ChatUser(
         userCredential.user?.email ?? '',
         userCredential.user?.photoURL ?? '',
         userCredential.user?.displayName ?? '');
+    return _user;
   }
 
   @override
