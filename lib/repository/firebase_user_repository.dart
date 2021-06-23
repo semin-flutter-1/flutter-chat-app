@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseUserRepository extends UserRepository {
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+
   @override
   Future<ChatUser?> login() async {
     UserCredential? userCredential = await signInWithGoogle();
@@ -12,6 +14,8 @@ class FirebaseUserRepository extends UserRepository {
       return null;
     }
 
+    await _googleSignIn.signIn();
+
     return ChatUser(
         userCredential.user?.email ?? '',
         userCredential.user?.photoURL ?? '',
@@ -19,8 +23,9 @@ class FirebaseUserRepository extends UserRepository {
   }
 
   @override
-  void logout() {
-    // TODO: implement logout
+  Future logout() async {
+    await _googleSignIn.disconnect();
+    await FirebaseAuth.instance.signOut();
   }
 
   Future<UserCredential?> signInWithGoogle() async {
