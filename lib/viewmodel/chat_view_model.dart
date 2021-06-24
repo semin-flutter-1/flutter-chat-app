@@ -32,6 +32,7 @@ class ChatViewModel extends ChangeNotifier {
       DateTime.now().millisecondsSinceEpoch,
       userRepository.user!.email,
     ));
+    _chatList = await repository.getAll();
     notifyListeners();
   }
 }

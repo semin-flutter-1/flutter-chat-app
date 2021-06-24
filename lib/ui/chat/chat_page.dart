@@ -108,7 +108,6 @@ class _ChatPageState extends State<ChatPage> {
                     TextButton(
                       onPressed: () async {
                         await viewModel.pushMessage(_controller.text);
-                        await viewModel.fetch();
 
                         // 입력 창 초기화
                         _controller.clear();
