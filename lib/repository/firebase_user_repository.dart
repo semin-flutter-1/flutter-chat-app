@@ -59,7 +59,8 @@ class FirebaseUserRepository extends UserRepository {
   Stream<ChatUser?> authStateChanges() {
     return FirebaseAuth.instance.authStateChanges().map((user) {
       if (user != null) {
-        return ChatUser(user.email, user.photoURL, user.displayName);
+        _user = ChatUser(user.email, user.photoURL, user.displayName);
+        return _user;
       }
       return null;
     });

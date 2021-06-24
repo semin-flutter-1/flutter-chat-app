@@ -14,12 +14,13 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   final userRepository = FirebaseUserRepository();
+  final chatRepository = FirebaseChatRepository();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: LoginViewModel(userRepository)),
-        ChangeNotifierProvider.value(value: ChatViewModel(FirestoreChatRepository(), userRepository)),
+        ChangeNotifierProvider.value(value: ChatViewModel(chatRepository, userRepository)),
       ],
       child: MyApp(),
     ),
