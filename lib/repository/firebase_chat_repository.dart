@@ -34,9 +34,9 @@ class FirebaseChatRepository extends Repository<Chat> {
     }).toList();
 
     result.sort((a, b) {
-      if (a.time > b.time) {
+      if (a.time! > b.time!) {
         return 1;
-      } else if (a.time < b.time) {
+      } else if (a.time! < b.time!) {
         return -1;
       }
       return 0;

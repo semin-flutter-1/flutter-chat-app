@@ -31,11 +31,11 @@ class OtherChatItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      chat.name,
+                      chat.name!,
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     SizedBox(width: 8),
-                    Text(dateMillisecondsToString(chat.time)),
+                    Text(dateMillisecondsToString(chat.time!)),
                   ],
                 ),
                 Container(
@@ -44,7 +44,7 @@ class OtherChatItem extends StatelessWidget {
                     color: Colors.grey[200],
                   ),
                   padding: const EdgeInsets.all(8),
-                  child: Text(chat.message),
+                  child: Text(chat.message!),
                 ),
               ],
             ),

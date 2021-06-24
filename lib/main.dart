@@ -1,5 +1,6 @@
 import 'package:chat_app/repository/firebase_chat_repository.dart';
 import 'package:chat_app/repository/firebase_user_repository.dart';
+import 'package:chat_app/repository/firestore_chat_repository.dart';
 import 'package:chat_app/ui/chat/chat_page.dart';
 import 'package:chat_app/ui/login/login_page.dart';
 import 'package:chat_app/viewmodel/chat_view_model.dart';
@@ -18,7 +19,7 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: LoginViewModel(userRepository)),
-        ChangeNotifierProvider.value(value: ChatViewModel(FirebaseChatRepository(), userRepository)),
+        ChangeNotifierProvider.value(value: ChatViewModel(FirestoreChatRepository(), userRepository)),
       ],
       child: MyApp(),
     ),

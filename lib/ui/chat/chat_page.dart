@@ -22,8 +22,7 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
 
     context.read<ChatViewModel>()
-        .fetch()
-        .whenComplete(() => _scrollToBottom());
+        .fetch();
   }
 
   @override
