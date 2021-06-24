@@ -6,4 +6,6 @@ abstract class UserRepository {
   Future<void> logout();
 
   ChatUser? get user;
+
+  Stream<ChatUser?> authStateChanges();
 }
