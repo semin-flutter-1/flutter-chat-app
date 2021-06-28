@@ -1,7 +1,6 @@
 import 'package:chat_app/model/chat.dart';
 import 'package:chat_app/model/chat_user.dart';
 import 'package:chat_app/repository/repository.dart';
-import 'package:chat_app/repository/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class ChatViewModel extends ChangeNotifier {
