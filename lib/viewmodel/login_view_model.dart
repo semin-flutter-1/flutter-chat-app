@@ -1,17 +1,20 @@
 import 'package:chat_app/model/chat_user.dart';
+import 'package:chat_app/model/result.dart';
 import 'package:chat_app/repository/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginViewModel extends ChangeNotifier {
   UserRepository repository;
-  bool isLogin = false;
+
+  ChatUser? user;
 
   LoginViewModel(this.repository) {
-    repository.authStateChanges().listen((ChatUser? user) {
-      if (user == null) {
-        isLogin = false;
-      } else {
-        isLogin = true;
+    repository.authStateChanges().listen((Result<ChatUser> result) {
+      if (result is Success<ChatUser>) {
+        user = result.data;
+      } else if (result is Error<ChatUser>) {
+        user = null;
+        print(result.e);
       }
       notifyListeners();
     });

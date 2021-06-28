@@ -1,3 +1,5 @@
+import 'package:chat_app/repository/fake_chat_repository.dart';
+import 'package:chat_app/repository/fake_user_repository.dart';
 import 'package:chat_app/repository/firebase_chat_repository.dart';
 import 'package:chat_app/repository/firebase_user_repository.dart';
 import 'package:chat_app/repository/firestore_chat_repository.dart';
@@ -13,14 +15,16 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  final userRepository = FirebaseUserRepository();
-  final chatRepository = FirebaseChatRepository();
+  // final userRepository = FirebaseUserRepository();
+  // final chatRepository = FirebaseChatRepository();
+  final userRepository = FakeUserRepository();
+  final chatRepository = FakeChatRepository();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: LoginViewModel(userRepository)),
-        ChangeNotifierProvider.value(value: ChatViewModel(chatRepository, userRepository)),
+        ChangeNotifierProvider.value(value: ChatViewModel(chatRepository)),
       ],
       child: MyApp(),
     ),
@@ -37,7 +41,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: viewModel.isLogin ? ChatPage() : LoginPage(),
+      home: viewModel.user != null ? ChatPage() : LoginPage(),
     );
   }
 }

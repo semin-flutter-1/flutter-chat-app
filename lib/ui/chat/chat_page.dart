@@ -60,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
                       itemCount: viewModel.chatList.length,
                       itemBuilder: (context, index) {
                         Chat chat = viewModel.chatList[index];
-                        if (loginViewModel.repository.user!.email ==
+                        if (loginViewModel.user!.email ==
                             chat.email) {
                           return MyChatItem(chat: chat);
                         } else {
@@ -107,7 +107,7 @@ class _ChatPageState extends State<ChatPage> {
                     Flexible(child: Container()),
                     TextButton(
                       onPressed: () async {
-                        await viewModel.pushMessage(_controller.text);
+                        await viewModel.pushMessage(_controller.text, loginViewModel.user!);
 
                         // 입력 창 초기화
                         _controller.clear();

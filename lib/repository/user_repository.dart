@@ -1,11 +1,10 @@
 import 'package:chat_app/model/chat_user.dart';
+import 'package:chat_app/model/result.dart';
 
 abstract class UserRepository {
-  Future<ChatUser?> login();
+  void login();
 
-  Future<void> logout();
+  void logout();
 
-  ChatUser? get user;
-
-  Stream<ChatUser?> authStateChanges();
+  Stream<Result<ChatUser>> authStateChanges();
 }

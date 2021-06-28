@@ -1,13 +1,13 @@
 import 'package:chat_app/model/chat.dart';
+import 'package:chat_app/model/chat_user.dart';
 import 'package:chat_app/repository/repository.dart';
 import 'package:chat_app/repository/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class ChatViewModel extends ChangeNotifier {
   final Repository<Chat> repository;
-  final UserRepository userRepository;
 
-  ChatViewModel(this.repository, this.userRepository);
+  ChatViewModel(this.repository);
 
   List<Chat> _chatList = [];
 
@@ -24,13 +24,13 @@ class ChatViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> pushMessage(String text) async {
+  Future<void> pushMessage(String text, ChatUser user) async {
     await repository.add(Chat(
-      userRepository.user!.name,
-      userRepository.user!.profileUrl,
+      user.name,
+      user.profileUrl,
       text,
       DateTime.now().millisecondsSinceEpoch,
-      userRepository.user!.email,
+      user.email,
     ));
     _chatList = await repository.getAll();
     notifyListeners();
