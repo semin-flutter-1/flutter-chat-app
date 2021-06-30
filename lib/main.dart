@@ -1,49 +1,46 @@
 import 'package:chat_app/repository/fake/fake_chat_repository.dart';
 import 'package:chat_app/repository/fake/fake_user_repository.dart';
-import 'package:chat_app/repository/firebase/firebase_user_repository.dart';
-import 'package:chat_app/repository/firebase/firestore_chat_repository.dart';
 import 'package:chat_app/ui/chat/chat_page.dart';
 import 'package:chat_app/ui/login/login_page.dart';
 import 'package:chat_app/viewmodel/chat_view_model.dart';
 import 'package:chat_app/viewmodel/login_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  final userRepository = FirebaseUserRepository();
+  // final userRepository = FirebaseUserRepository();
   // final chatRepository = FirebaseChatRepository();
 
-  final chatRepository = FirestoreChatRepository();
+  // final chatRepository = FirestoreChatRepository();
 
-  // final userRepository = FakeUserRepository();
-  // final chatRepository = FakeChatRepository();
+  final userRepository = FakeUserRepository();
+  final chatRepository = FakeChatRepository();
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: LoginViewModel(userRepository)),
-        ChangeNotifierProvider.value(value: ChatViewModel(chatRepository)),
-      ],
-      child: MyApp(),
-    ),
-  );
+  Get.put(LoginViewModel(userRepository));
+  Get.put(ChatViewModel(chatRepository));
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final viewModel = Get.find<LoginViewModel>();
+
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<LoginViewModel>();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: viewModel.user != null ? ChatPage() : LoginPage(),
+      home: GetBuilder<LoginViewModel>(
+        builder: (_) {
+          return viewModel.user != null ? ChatPage() : LoginPage();
+        },
+      ),
     );
   }
 }

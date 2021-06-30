@@ -1,9 +1,9 @@
 import 'package:chat_app/model/chat_user.dart';
 import 'package:chat_app/model/result.dart';
 import 'package:chat_app/repository/user_repository.dart';
-import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
-class LoginViewModel extends ChangeNotifier {
+class LoginViewModel extends GetxController {
   UserRepository repository;
 
   ChatUser? user;
@@ -16,7 +16,7 @@ class LoginViewModel extends ChangeNotifier {
         user = null;
         print(result.e);
       }
-      notifyListeners();
+      update();
     });
   }
 

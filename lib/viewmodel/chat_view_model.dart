@@ -1,9 +1,9 @@
 import 'package:chat_app/model/chat.dart';
 import 'package:chat_app/model/chat_user.dart';
 import 'package:chat_app/repository/repository.dart';
-import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 
-class ChatViewModel extends ChangeNotifier {
+class ChatViewModel extends GetxController {
   final Repository<Chat> repository;
 
   ChatViewModel(this.repository);
@@ -20,7 +20,7 @@ class ChatViewModel extends ChangeNotifier {
     _isLoading = true;
     _chatList = await repository.getAll();
     _isLoading = false;
-    notifyListeners();
+    update();
   }
 
   Future<void> pushMessage(String text, ChatUser user) async {
@@ -32,6 +32,6 @@ class ChatViewModel extends ChangeNotifier {
       user.email,
     ));
     _chatList = await repository.getAll();
-    notifyListeners();
+    update();
   }
 }

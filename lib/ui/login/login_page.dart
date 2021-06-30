@@ -1,6 +1,6 @@
 import 'package:chat_app/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            context.read<LoginViewModel>().login();
+            Get.find<LoginViewModel>().login();
           },
           child: Text('Log In'),
           style: ButtonStyle(
