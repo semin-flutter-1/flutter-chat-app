@@ -4,9 +4,9 @@ import 'package:chat_app/repository/repository.dart';
 import 'package:flutter/foundation.dart';
 
 class ChatViewModel extends ChangeNotifier {
-  final Repository<Chat> repository;
+  final Repository<Chat> _repository;
 
-  ChatViewModel(this.repository);
+  ChatViewModel(this._repository);
 
   List<Chat> _chatList = [];
 
@@ -14,24 +14,24 @@ class ChatViewModel extends ChangeNotifier {
 
   bool _isLoading = false;
 
-  get isLoading => _isLoading;
+  bool get isLoading => _isLoading;
 
   Future<void> fetch() async {
     _isLoading = true;
-    _chatList = await repository.getAll();
+    _chatList = await _repository.getAll();
     _isLoading = false;
     notifyListeners();
   }
 
   Future<void> pushMessage(String text, ChatUser user) async {
-    await repository.add(Chat(
+    await _repository.add(Chat(
       user.name,
       user.profileUrl,
       text,
       DateTime.now().millisecondsSinceEpoch,
       user.email,
     ));
-    _chatList = await repository.getAll();
+    _chatList = await _repository.getAll();
     notifyListeners();
   }
 }

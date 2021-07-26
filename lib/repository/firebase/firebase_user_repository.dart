@@ -5,28 +5,36 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseUserRepository extends UserRepository {
-  GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn;
+  final FirebaseAuth _auth;
+
+  FirebaseUserRepository({GoogleSignIn? googleSignIn, FirebaseAuth? auth})
+      : _googleSignIn = googleSignIn ?? GoogleSignIn(),
+        _auth = auth ?? FirebaseAuth.instance;
 
   @override
-  void login() async {
+  Future<ChatUser?> login() async {
     UserCredential? userCredential = await signInWithGoogle();
 
-    if (userCredential == null) {
-      return;
+    if (userCredential == null || userCredential.user == null) {
+      return null;
     }
 
     await _googleSignIn.signIn();
+
+    return ChatUser(userCredential.user!.email, userCredential.user!.photoURL,
+        userCredential.user!.displayName);
   }
 
   @override
-  void logout() async {
+  Future<void> logout() async {
     await _googleSignIn.disconnect();
-    await FirebaseAuth.instance.signOut();
+    await _auth.signOut();
   }
 
   Future<UserCredential?> signInWithGoogle() async {
     // Trigger the authentication flow
-    final googleUser = await GoogleSignIn().signIn();
+    final googleUser = await _googleSignIn.signIn();
 
     if (googleUser == null) {
       return null;
@@ -43,12 +51,12 @@ class FirebaseUserRepository extends UserRepository {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    return await _auth.signInWithCredential(credential);
   }
 
   @override
   Stream<Result<ChatUser>> authStateChanges() {
-    return FirebaseAuth.instance.authStateChanges().map((User? user) {
+    return _auth.authStateChanges().map((User? user) {
       if (user != null) {
         return Result.success(
           ChatUser(user.email, user.photoURL, user.displayName),

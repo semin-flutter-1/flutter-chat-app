@@ -8,13 +8,15 @@ class FakeUserRepository extends UserRepository {
   StreamController<ChatUser?> _authStateStreamController = StreamController();
 
   @override
-  void login() async {
+  Future<ChatUser?> login() async {
     await Future.delayed(Duration(seconds: 1));
     _authStateStreamController.add(ChatUser('bbb@aaa.com', '', '오준석'));
+
+    return ChatUser('bbb@aaa.com', '', '오준석');
   }
 
   @override
-  void logout() async {
+  Future<void> logout() async {
     _authStateStreamController.add(null);
   }
 
