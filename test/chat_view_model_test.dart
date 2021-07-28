@@ -9,13 +9,19 @@ void main() {
     final viewModel = ChatViewModel(
         FirestoreChatRepository(firebaseFirestore: FakeFirebaseFirestore()));
 
-    await viewModel.fetch();
-
-    expect(viewModel.chatList.length, 0);
-
+    await viewModel.pushMessage(
+        'test', ChatUser('email', 'profileUrl', 'name'));
+    await viewModel.pushMessage(
+        'test', ChatUser('email', 'profileUrl', 'name'));
     await viewModel.pushMessage(
         'test', ChatUser('email', 'profileUrl', 'name'));
 
-    expect(viewModel.chatList.length, 1);
+    expect(
+        viewModel.getChatListStream(),
+        emitsInOrder([
+          isA<ChatUser>(),
+          isA<ChatUser>(),
+          isA<ChatUser>(),
+        ]));
   });
 }

@@ -28,6 +28,7 @@ Future<void> _showNotification(RemoteMessage message) async {
           'This channel is used for important notifications.', // description
           importance: Importance.max,
           priority: Priority.high,
+          sound: RawResourceAndroidNotificationSound('slow_spring_board'),
           ticker: 'ticker');
   const NotificationDetails platformChannelSpecifics =
       NotificationDetails(android: androidPlatformChannelSpecifics);
