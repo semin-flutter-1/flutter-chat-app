@@ -22,6 +22,6 @@ class FirestoreChatRepository {
   }
 
   Stream<QuerySnapshot<Chat>> getChatRef() {
-    return _chatRef.orderBy('time').snapshots();
+    return _chatRef.orderBy('time', descending: true).snapshots();
   }
 }

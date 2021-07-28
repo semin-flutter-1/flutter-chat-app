@@ -68,6 +68,7 @@ class _ChatPageState extends State<ChatPage> {
                     final data = snapshot.requireData;
 
                     return ListView.builder(
+                      reverse: true,
                       itemCount: data.size,
                       itemBuilder: (context, index) {
                         Chat chat = data.docs[index].data();
@@ -123,8 +124,6 @@ class _ChatPageState extends State<ChatPage> {
 
                         // 입력 창 초기화
                         _controller.clear();
-                        // 스크롤 끝으로 이동
-                        _scrollToBottom();
                       },
                       child: Container(
                         padding: const EdgeInsets.all(8),
@@ -145,14 +144,6 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       ),
-    );
-  }
-
-  void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
     );
   }
 }
