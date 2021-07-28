@@ -1,5 +1,3 @@
-import 'package:chat_app/repository/fake/fake_chat_repository.dart';
-import 'package:chat_app/repository/fake/fake_user_repository.dart';
 import 'package:chat_app/repository/firebase/firebase_user_repository.dart';
 import 'package:chat_app/repository/firebase/firestore_chat_repository.dart';
 import 'package:chat_app/ui/chat/chat_page.dart';
@@ -42,6 +40,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(color: Colors.black),
+          actionsIconTheme: IconThemeData(color: Colors.amber),
+        ),
       ),
       home: viewModel.user != null ? ChatPage() : LoginPage(),
     );

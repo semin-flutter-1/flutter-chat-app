@@ -14,14 +14,25 @@ class MyChatItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Text(chat.time!.toDateString()),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.yellow[200],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(24),
+                topRight: Radius.circular(24),
+                bottomLeft: Radius.circular(24),
+              ),
+              color: Colors.blueAccent[700],
             ),
             padding: const EdgeInsets.all(8),
-            child: Text(chat.message!),
+            child: Text(
+              chat.message!,
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            chat.time!.toDateString(),
+            style: TextStyle(color: Colors.grey),
           ),
         ],
       ),

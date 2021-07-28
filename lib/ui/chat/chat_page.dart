@@ -21,8 +21,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
 
-    context.read<ChatViewModel>()
-        .fetch();
+    context.read<ChatViewModel>().fetch();
   }
 
   @override
@@ -39,13 +38,18 @@ class _ChatPageState extends State<ChatPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        centerTitle: true,
+        title: Text(
+          '생존코딩 단체방',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
         actions: [
           IconButton(
-              onPressed: () {
-                context.read<LoginViewModel>().logout();
-              },
-              icon: Icon(Icons.logout)),
+            onPressed: () {
+              context.read<LoginViewModel>().logout();
+            },
+            icon: Icon(Icons.logout),
+          ),
         ],
       ),
       body: SafeArea(
@@ -60,8 +64,7 @@ class _ChatPageState extends State<ChatPage> {
                       itemCount: viewModel.chatList.length,
                       itemBuilder: (context, index) {
                         Chat chat = viewModel.chatList[index];
-                        if (loginViewModel.user!.email ==
-                            chat.email) {
+                        if (loginViewModel.user!.email == chat.email) {
                           return MyChatItem(chat: chat);
                         } else {
                           return OtherChatItem(chat: chat);
@@ -107,7 +110,8 @@ class _ChatPageState extends State<ChatPage> {
                     Flexible(child: Container()),
                     TextButton(
                       onPressed: () async {
-                        await viewModel.pushMessage(_controller.text, loginViewModel.user!);
+                        await viewModel.pushMessage(
+                            _controller.text, loginViewModel.user!);
 
                         // 입력 창 초기화
                         _controller.clear();
