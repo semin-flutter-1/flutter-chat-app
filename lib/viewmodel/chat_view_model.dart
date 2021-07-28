@@ -1,10 +1,11 @@
 import 'package:chat_app/model/chat.dart';
 import 'package:chat_app/model/chat_user.dart';
-import 'package:chat_app/repository/repository.dart';
+import 'package:chat_app/repository/firebase/firestore_chat_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class ChatViewModel extends ChangeNotifier {
-  final Repository<Chat> _repository;
+  final FirestoreChatRepository _repository;
 
   ChatViewModel(this._repository);
 
@@ -21,6 +22,10 @@ class ChatViewModel extends ChangeNotifier {
     _chatList = await _repository.getAll();
     _isLoading = false;
     notifyListeners();
+  }
+
+  Stream<QuerySnapshot<Chat>> getChatListStream() {
+    return _repository.getChatRef();
   }
 
   Future<void> pushMessage(String text, ChatUser user) async {

@@ -1,5 +1,4 @@
 import 'package:chat_app/model/result.dart';
-import 'package:chat_app/repository/fake/fake_user_repository.dart';
 import 'package:chat_app/repository/firebase/firebase_user_repository.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,22 +6,6 @@ import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
 
 void main() {
   group('user_repository', () {
-    test('fake하게 로그인, 로그아웃 되어야 한다', () async {
-      final fakeUserRepository = FakeUserRepository();
-
-      await fakeUserRepository.login();
-      await fakeUserRepository.logout();
-      await fakeUserRepository.login();
-
-      expect(
-          fakeUserRepository.authStateChanges(),
-          emitsInOrder([
-            isA<Success>(),
-            isA<Error>(),
-            isA<Success>(),
-          ]));
-    });
-
     test('firebase_auth로 로그인, 로그아웃 되어야한다', () async {
       final user = MockUser(
         isAnonymous: false,

@@ -1,5 +1,3 @@
-import 'package:chat_app/model/chat_user.dart';
-import 'package:chat_app/repository/fake/fake_user_repository.dart';
 import 'package:chat_app/repository/firebase/firebase_user_repository.dart';
 import 'package:chat_app/viewmodel/login_view_model.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
@@ -32,18 +30,5 @@ void main() {
       expect(viewModel.user!.name, 'tester');
       expect(viewModel.user!.email, 'aaa@bbb.com');
     }
-  });
-
-  test('fake login viewModel test', () async {
-    final viewModel = LoginViewModel(userRepository: FakeUserRepository());
-
-    expect(viewModel.user == null, true);
-
-    ChatUser? user = await viewModel.login();
-
-    expect(user == null, false);
-
-    expect(user!.name, '오준석');
-    expect(user.email, 'bbb@aaa.com');
   });
 }
