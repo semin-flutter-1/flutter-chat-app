@@ -2,6 +2,7 @@ import 'package:chat_app/model/chat_user.dart';
 import 'package:chat_app/model/result.dart';
 import 'package:chat_app/repository/firebase/firebase_user_repository.dart';
 import 'package:chat_app/repository/user_repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -23,10 +24,17 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<ChatUser?> login() async {
-    return await _repository.login();
+    final chatUser = await _repository.login();
+
+    if (chatUser != null) {
+      await FirebaseMessaging.instance.subscribeToTopic('chat');
+    }
+
+    return chatUser;
   }
 
   Future<void> logout() async {
     await _repository.logout();
+    await FirebaseMessaging.instance.unsubscribeFromTopic('chat');
   }
 }
