@@ -23,7 +23,8 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: LoginViewModel(userRepository)),
+        ChangeNotifierProvider.value(
+            value: LoginViewModel(userRepository: userRepository)),
         ChangeNotifierProvider.value(value: ChatViewModel(chatRepository)),
       ],
       child: MyApp(),
